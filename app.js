@@ -25,6 +25,10 @@ router.get('/', (req, res) => {
     res.render('home');
 });
 
+router.get('/rules', (req, res) => {
+    res.render('rules');
+});
+
 app.use('/', router);
 
 module.exports = app;
