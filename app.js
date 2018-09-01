@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const sync = require('sync-request');
+const routes = require('./controllers/pageController.js');
+
+const passwords = require('./passwords.json');
 
 const app = express();
 
@@ -19,16 +22,10 @@ app.use(cookieParser());
 
 app.use(flash());
 
-const router = express.Router();
+// === PASSWORDS CHECKING === //
+app.post('/level1', function(req, res){ if(req.body.answer == passwords.level1) res.redirect('/hDE4Qbmf'); });
+app.post('/hDE4Qbmf', function(req, res){ if(req.body.answer == passwords.level2) res.redirect('/'); });
 
-router.get('/', (req, res) => {
-    res.render('home');
-});
-
-router.get('/rules', (req, res) => {
-    res.render('rules');
-});
-
-app.use('/', router);
+app.use('/', routes);
 
 module.exports = app;
